@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+<style>
+	#BillSection{
+	background-color: #d0e4fe;
+	border: 2px solid #bcffee;
+    border-radius: 20px;
+	margin-top: 100px;
+    margin-bottom: 100px;
+    margin-right: 150px;
+    margin-left: 80px;
+	
+	padding-top: 50px;
+    padding-right: 10px;
+    padding-bottom: 50px;
+    padding-left: 80px;
+	}
+	
+	#items{
+      width: 20%;
+    padding: 12px 20px;
+    margin: 8px 20px;
+    text-transform: uppercase;
+    
+   
+    color: #3CBC8D;
+	line-height: 1.8;	
+	letter-spacing: 1px;
+	word-spacing: 3px;
+
+	
+}
+	#items1{
+      width: 20%;
+    padding: 12px 20px;
+    margin: 8px 20px;
+    text-transform: uppercase;
+    border: 2px solid #3CBC8D;
+    background-color: #bcffee;
+    color: white;
+	line-height: 1.8;	
+	letter-spacing: 1px;
+	word-spacing: 3px;
+	border-radius: 5px;
+	
+}
+	.labels{
+      width: 20%;
+    padding: 12px 20px;
+    margin: 8px 20px;
+    text-transform: uppercase;
+    
+   
+    color: white;
+	line-height: 1.8;	
+	letter-spacing: 1px;
+	word-spacing: 3px;
+border: 2px solid #bcffee;
+    background-color: #3CBC8D;
+	
+}
+	.buttons
+	{
+		border-radius: 50%;
+		margin-left: 20px;
+		background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+	padding: 0px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 40px;
+    
+    cursor: pointer;
+	}
+	.delbuttons
+	{
+		border-radius: 50%;
+		margin-left: 20px;
+		background-color: red; /* Green */
+    border: none;
+    color: white;
+	padding: 0px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 38px;
+    
+    cursor: pointer;
+	}
+
+</style>
+<script type="text/javascript">
+
+var item_no = 0;
+
+var inventory=['Bajaj',
+"Honda" ,
+"Hero Moto Corp" ,
+"Yamaha" ,
+"Royal Enfield" ,
+"TVS ",
+"Suzuki" ,
+"KTM "];
+
+function GetDynamicTextBox(value){
+	item_no++;
+	
+    return '<input id="items" list="itemslist" name = "DynamicTextBox_'+item_no +'" type="text" value = "' + value + '" />' +
+			'<input id="items" name = "DynamicTextBox_'+item_no +'" type="text" value = "' + value + '" />' +
+			'<input id="items" name = "DynamicTextBox_'+item_no +'" type="text" value = "' + value + '" />' +
+			'<input class="buttons" type="button" value="+" onclick = "AddAnotherTextBox(this)"/>' ;
+           
+			
+}
+
+function init()
+{
+	var list = document.createElement("DATALIST");
+    list.setAttribute("id", "itemslist");
+	document.getElementById("BillSection").appendChild(list);
+	
+	for(i=0;i<inventory.length;i++)
+	{
+		var opt = document.createElement("OPTION");
+    opt.setAttribute("value", inventory[i]);
+    document.getElementById("itemslist").appendChild(opt);
+	}
+	AddTextBox();
+}
+
+
+
+function AddTextBox() {
+    var div = document.createElement('DIV');
+    div.innerHTML = GetDynamicTextBox("");
+    document.getElementById("BillSection").appendChild(div);
+}
+
+function AddAnotherTextBox(t) {
+	//t.style.visibility = 'hidden';
+	var parent = t.parentNode;
+	t.remove();
+	var addDelButton = parent.innerHTML + '<input class="delbuttons" type="button" value="x" onclick = "RemoveTextBox(this)"			/>'
+	parent.innerHTML  = addDelButton;
+	
+    var div = document.createElement('DIV');
+    div.innerHTML = GetDynamicTextBox("");
+    document.getElementById("BillSection").appendChild(div);
+}
+
+function RemoveTextBox(div) {
+    document.getElementById("BillSection").removeChild(div.parentNode);
+}
+
+window.onload=init
+</script>
+<body>
+
+<datalist id="inventorylist"></datalist>
+
+
+        <div id="BillSection">
+			<input class="labels" type="label" value="Item" readonly></input>
+			<input class="labels"type="label" value="Quantity" readonly></input>
+			<input class="labels" type="label" value="Amount" readonly ></input>
+		</div>		
+
+</body>
+</html>
